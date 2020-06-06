@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>信息展示平台</title>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+</head>
+<body>
+<div>
+	<div>
+		<strong>站点ip</strong>
+		<br>
+		<ip></ip>
+	</div>
+	<div>
+		<strong>站点链接</strong>
+		<br>
+		<urls></urls>
+	</div>
+	<div>
+		<strong>开放端口</strong>
+		<br>
+		<ports></ports>
+	</div>
+	<div>
+		<strong>目录扫描</strong>
+		<br>
+		<dirs></dirs>
+	</div>
+</div>
+    <table border="1px" id="tab">
+      <tr>
+        <td>ipdomain</td>
+        <td>urladdress</td>
+        <td>bugname</td>
+		<td>bugpoc</td>
+      </tr>
+    </table>
+</body>
+</html>
+
+<script type="text/javascript">
+	var ip = "http:\/\/localhost:81\/cms\/";
+	var urls = "[http:\/\/localhost:81\/cms\/ http:\/\/localhost:81\/cms\/amp.php?type=index\x26S_id=1 http:\/\/localhost:81\/cms\/mip.php?type=index\x26S_id=1 http:\/\/localhost:81\/cms\/?type=text\x26S_id=13\x26lang=cn http:\/\/localhost:81\/cms\/?type=product\x26S_id=2\x26lang=cn http:\/\/localhost:81\/cms\/?lang=cn http:\/\/localhost:81\/cms\/?type=productinfo\x26S_id=88 http:\/\/localhost:81\/cms\/?type=news\x26S_id=99\x26lang=cn http:\/\/localhost:81\/cms\/?type=form\x26S_id=9\x26lang=cn http:\/\/localhost:81\/cms\/member http:\/\/localhost:81\/cms\/?type=text\x26S_id=1 http:\/\/localhost:81\/cms\/?type=product\x26S_id=1 http:\/\/localhost:81\/cms\/feed.php http:\/\/localhost:81\/cms\/sitemap.xml http:\/\/localhost:81\/cms\/function\/booksave.php http:\/\/localhost:81\/cms\/function\/code_1.php?name=G_code http:\/\/localhost:81\/cms\/pc\/pc135\/images\/b9f8dd60bc3118137b47e0f1e0439112_origin.html http:\/\/localhost:81\/cms\/member http:\/\/localhost:81\/cms\/member\/ http:\/\/localhost:81\/cms\/mip.php?type=text\x26S_id=1 http:\/\/localhost:81\/cms\/amp.php?type=text\x26S_id=1 http:\/\/localhost:81\/ http:\/\/localhost:81\/cms\/feed.asp http:\/\/localhost:81\/cms\/function\/booksave.php http:\/\/localhost:81\/cms\/function\/booksave.php?action=save http:\/\/localhost:81\/cms\/?type=news\x26S_id=99\x26page=1 http:\/\/localhost:81\/cms\/?type=product\x26S_id=1\x26page=1 http:\/\/localhost:81\/cms\/function\/form.php?S_id=9 http:\/\/localhost:81\/cms\/function\/code_1.php?name=code http:\/\/localhost:81\/cms\/function\/buy.php?action=input http:\/\/localhost:81\/cms\/function\/scms.php?action=P_rest\x26P_id=88 http:\/\/localhost:81\/cms\/function\/buy.php?action=input http:\/\/localhost:81\/cms\/member\/ http:\/\/localhost:81\/cms\/member\/member_login.php http:\/\/localhost:81\/cms\/function\/form.php?action=input\x26S_id=9\x26from=%2F%2Flocalhost%3A81%2Fcms%2Findex.php%3Ftype%3Dform%26S_id%3D9 http:\/\/localhost:81\/cms\/function\/booksave.php?action=save http:\/\/localhost:81\/cms\/function\/form.php?action=input\x26S_id=9\x26from=%2F%2Flocalhost%3A81%2Fcms%2Findex.php%3Ftype%3Dform%26S_id%3D9 http:\/\/localhost:81\/cms\/function\/code_2.php http:\/\/localhost:81\/cms\/function\/code_1.php?name=M_code http:\/\/localhost:81\/cms\/member\/member_reg.php http:\/\/localhost:81\/cms\/member\/member_found.php http:\/\/localhost:81\/cms\/member\/member_found.php?action=found http:\/\/localhost:81\/cms\/member\/member_found.php?action=found]"
+	var ports = "[135, 902, 944, 912, 445, 81, 80, 1028, 1026, 2574, 3306, 3943, 4449, 5040, 6943, 6942, 5486, 5491, 8080, 5939, 7680, 12891, 13404,]";
+	var dirs = "[http:\/\/localhost:81\/cms\/ueditor\r\n http:\/\/localhost:81\/cms\/member\r\n]";
+	var buginfo = "[{\x22ipdomain\x22:\x22http:\/\/localhost:81\/cms\/\x22,\x22urladdress\x22:\x22http:\/\/localhost:81\/cms\/xss\x22,\x22bugname\x22:\x22xss漏洞\x22,\x22bugpoc\x22:\x22\\\x22\\u003e\\u003cimg src=# onerror=alert()\\u003e\x22},{\x22ipdomain\x22:\x22http:\/\/localhost:81\/cms\/\x22,\x22urladdress\x22:\x22127.0.0.1:3306\x22,\x22bugname\x22:\x22检测mysql弱口令\x22,\x22bugpoc\x22:\x22123456\x22}]"
+	$(function(){
+	   dirs = dirs.replace("[","");
+	   dirs = dirs.replace("]","");
+	   var reg = new RegExp(" ","g");
+	   console.log(dirs.replace(reg,"<br>"));
+	   $("dirs").append(dirs.replace(reg,"<br>"));
+	   ports = ports.replace("[","");
+	   ports = ports.replace("]","");
+	   $("ports").append(ports);
+	   urls = urls.replace("[","");
+	   urls = urls.replace("]","");
+	   var reg = new RegExp(" ","g");
+	   console.log(urls.replace(reg,"<br>"));
+	   $("urls").append(urls.replace(reg,"<br>"));
+	   $("ip").append(ip);
+        var s = "";
+        for(var i = 0; i < buginfo.length; i++) {
+          s = "<tr><td>" + buginfo[i].ipdomain + "</td><td>" + buginfo[i].urladdress + "</td><td>" +
+            buginfo[i].bugname + "</td><td>" + buginfo[i].bugpoc + "</td></tr>";
+          $("#tab").append(s);
+        }
+      });
+</script>
